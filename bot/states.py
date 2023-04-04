@@ -5,6 +5,13 @@ class ChooseLanguage(StatesGroup):
     choose_language = State()
 
 
+class SubscribeAll(StatesGroup):
+    confirm = State()
+
+
 class Subscribe(StatesGroup):
     input = State()
-    confirm_all = State()
+
+
+class Unsubscribe(StatesGroup):
+    input = State()
