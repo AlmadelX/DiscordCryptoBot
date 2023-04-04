@@ -1,8 +1,8 @@
 from aiogram.dispatcher.filters.state import State, StatesGroup
 
 
-class ChooseLanguage(StatesGroup):
-    choose_language = State()
+class Language(StatesGroup):
+    choose = State()
 
 
 class SubscribeAll(StatesGroup):

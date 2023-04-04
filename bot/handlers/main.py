@@ -6,7 +6,7 @@ from bot.data.texts import load_text, load_button
 from bot.keyboards import start_menu, language_menu
 from bot.models import Text, Server, Subscription
 from bot.services.db_session import db_session
-from bot.states import ChooseLanguage
+from bot.states import Language
 from bot.filters import IsPowerOff, IsNotStarted
 
 
@@ -19,7 +19,7 @@ async def filter_power_off(message: Message):
 async def filter_not_started(message: Message):
     reply = db_session.query(Text).get('welcome').eng
 
-    await ChooseLanguage.choose_language.set()
+    await Language.choose.set()
     await message.reply(reply, reply_markup=language_menu())
 
 
