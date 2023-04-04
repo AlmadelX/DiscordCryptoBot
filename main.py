@@ -5,6 +5,7 @@ from bot.handlers import dp
 from bot.utils.bot_filters import IsPrivate
 from bot.utils.bot_logging import bot_logger
 
+
 async def on_startup(dp: Dispatcher):
     await dp.bot.delete_webhook()
     await dp.bot.get_updates(offset=-1)
@@ -13,6 +14,7 @@ async def on_startup(dp: Dispatcher):
 
     if (len(get_admins()) == 0):
         bot_logger.error('Bot admins list is not specified in settings!')
+
 
 async def on_shutdown(dp: Dispatcher):
     await dp.storage.close()

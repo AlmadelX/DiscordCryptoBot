@@ -1,4 +1,4 @@
-from .main import dp
+from .start import dp
 from .user import dp
 from .admin import dp
 
