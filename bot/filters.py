@@ -3,6 +3,7 @@ from aiogram.dispatcher.filters import BoundFilter
 
 from bot.models import User, Setting
 from bot.services.db_session import db_session
+from bot.data.config import get_admins
 
 
 class IsPrivate(BoundFilter):
@@ -25,4 +26,11 @@ class IsNotStarted(BoundFilter):
         if db_session.query(User).get(message.from_user.id) is None:
             return True
 
+        return False
+    
+class IsAdmin(BoundFilter):
+    async def check(self, message: types.Message):
+        if message.from_user.id in get_admins():
+            return True
+        
         return False
