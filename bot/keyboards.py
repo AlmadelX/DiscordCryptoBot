@@ -31,3 +31,10 @@ def confirm_menu(user_id: int) -> ReplyKeyboardMarkup:
     keyboard.row(load_text('yes_btn', user_id), load_text('no_btn', user_id))
 
     return keyboard
+
+def back_menu(user_id: int) -> ReplyKeyboardMarkup:
+    keyboard = ReplyKeyboardMarkup(resize_keyboard=True)
+
+    keyboard.row(load_text('back_btn', user_id))
+
+    return keyboard

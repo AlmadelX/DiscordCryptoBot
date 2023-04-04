@@ -6,4 +6,5 @@ class ChooseLanguage(StatesGroup):
 
 
 class Subscribe(StatesGroup):
-    confirm = State()
+    input = State()
+    confirm_all = State()
