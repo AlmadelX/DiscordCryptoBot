@@ -11,8 +11,8 @@ class Setting(SqlAlchemyBase):
     value = sqlalchemy.Column(sqlalchemy.Text, nullable=False)
 
 
-class Language(SqlAlchemyBase):
-    __tablename__ = 'languages'
+class User(SqlAlchemyBase):
+    __tablename__ = 'users'
 
     id = sqlalchemy.Column(
         sqlalchemy.Integer, nullable=False, primary_key=True, unique=True)
@@ -26,3 +26,20 @@ class Text(SqlAlchemyBase):
         sqlalchemy.Text, nullable=False, primary_key=True, unique=True)
     eng = sqlalchemy.Column(sqlalchemy.Text)
     rus = sqlalchemy.Column(sqlalchemy.Text)
+
+
+class Server(SqlAlchemyBase):
+    __tablename__ = 'servers'
+
+    id = sqlalchemy.Column(
+        sqlalchemy.Integer, nullable=False, primary_key=True, autoincrement=True, unique=True)
+    name = sqlalchemy.Column(sqlalchemy.Text, nullable=False, unique=True)
+
+
+class Subscription(SqlAlchemyBase):
+    __tablename__ = 'subscriptions'
+
+    user_id = sqlalchemy.Column(sqlalchemy.Integer, sqlalchemy.ForeignKey(
+        'users.id'), nullable=False, unique=True)
+    server_id = sqlalchemy.Column(sqlalchemy.Integer, sqlalchemy.ForeignKey(
+        'servers.id'), nullable=False, primary_key=True, unique=True)

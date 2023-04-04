@@ -1,7 +1,7 @@
 from aiogram import types
 from aiogram.dispatcher.filters import BoundFilter
 
-from bot.models import Language, Setting
+from bot.models import User, Setting
 from bot.services.db_session import db_session
 
 
@@ -22,9 +22,7 @@ class IsPowerOff(BoundFilter):
 
 class IsNotStarted(BoundFilter):
     async def check(self, message: types.Message):
-        user_id = message.from_user.id
-
-        if db_session.query(Language).get(user_id) is None:
+        if db_session.query(User).get(message.from_user.id) is None:
             return True
 
         return False
