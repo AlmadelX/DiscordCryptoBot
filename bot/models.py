@@ -39,7 +39,9 @@ class Server(SqlAlchemyBase):
 class Subscription(SqlAlchemyBase):
     __tablename__ = 'subscriptions'
 
+    id = sqlalchemy.Column(
+        sqlalchemy.Integer, nullable=False, primary_key=True, autoincrement=True, unique=True)
     user_id = sqlalchemy.Column(sqlalchemy.Integer, sqlalchemy.ForeignKey(
-        'users.id'), nullable=False, unique=True)
+        'users.id'), nullable=False)
     server_id = sqlalchemy.Column(sqlalchemy.Integer, sqlalchemy.ForeignKey(
-        'servers.id'), nullable=False, primary_key=True, unique=True)
+        'servers.id'), nullable=False)

@@ -46,7 +46,8 @@ async def servers(message: Message):
 @dp.message_handler(text=load_button('subscriptions_btn'), state=None)
 async def subscriptions(message: Message):
     user_id = message.from_user.id
-    ids = db_session.query(Subscription).filter_by(user_id=message.from_user.id).all()
+    ids = [subscription.server_id for subscription in db_session.query(
+        Subscription).filter_by(user_id=message.from_user.id).all()]
     servers = db_session.query(Server).filter(Server.id.in_(ids)).all()
     names = [server.name for server in servers]
 

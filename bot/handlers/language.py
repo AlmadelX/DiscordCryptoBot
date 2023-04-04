@@ -24,7 +24,5 @@ async def valid_language(message: Message, state: FSMContext):
     await message.reply(reply, reply_markup=start_menu(user_id))
 
 @dp.message_handler(state=ChooseLanguage.choose_language)
-async def invalid_language(message: Message, state: FSMContext):
-    user_id = message.from_user.id
-
+async def invalid_language(message: Message):
     await message.reply('Language not supported!')

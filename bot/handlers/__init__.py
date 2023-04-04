@@ -1,4 +1,5 @@
 from .main import dp
+from .subscription import dp
 from .language import dp
 
 from bot.data.texts import load_text
