@@ -19,8 +19,8 @@ class Language(SqlAlchemyBase):
     lang = sqlalchemy.Column(sqlalchemy.Text, nullable=False)
 
 
-class Message(SqlAlchemyBase):
-    __tablename__ = 'messages'
+class Text(SqlAlchemyBase):
+    __tablename__ = 'texts'
 
     name = sqlalchemy.Column(
         sqlalchemy.Text, nullable=False, primary_key=True, unique=True)

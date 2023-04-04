@@ -3,6 +3,7 @@ from aiogram import Dispatcher, executor
 from bot.data.config import get_admins
 from bot.handlers import dp
 from bot.filters import IsPrivate
+from bot.services.db_session import db_session
 from bot.utils.bot_logging import bot_logger
 
 
@@ -17,6 +18,7 @@ async def on_startup(dp: Dispatcher):
 
 
 async def on_shutdown(dp: Dispatcher):
+    await db_session.close()
     await dp.storage.close()
     await dp.storage.wait_closed()
     await (await dp.bot.get_session()).close()
