@@ -1,8 +1,9 @@
 from aiogram import types
 from aiogram.dispatcher.filters import BoundFilter
 
-from bot.models.setting import Setting
+from bot.models import Setting
 from bot.services.db_session import db_session
+
 
 class IsPrivate(BoundFilter):
     async def check(self, message):
@@ -11,8 +12,9 @@ class IsPrivate(BoundFilter):
         else:
             return message.chat.type == types.ChatType.PRIVATE
 
+
 class IsPowerOff(BoundFilter):
     async def check(self, message: types.Message):
         power = db_session.query(Setting).get('power')
-        
+
         return power.value == "off"

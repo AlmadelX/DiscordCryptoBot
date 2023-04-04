@@ -2,7 +2,7 @@ from aiogram import Dispatcher, executor
 
 from bot.data.config import get_admins
 from bot.handlers import dp
-from bot.utils.bot_filters import IsPrivate
+from bot.filters import IsPrivate
 from bot.utils.bot_logging import bot_logger
 
 

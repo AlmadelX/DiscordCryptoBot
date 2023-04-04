@@ -2,7 +2,8 @@ from aiogram.types import ReplyKeyboardMarkup
 
 from bot.data.config import get_admins
 
-def menu(user_id):
+
+def start_menu(user_id):
     keyboard = ReplyKeyboardMarkup(resize_keyboard=True)
 
     keyboard.row("Available servers", "My subscriptions")
@@ -11,5 +12,13 @@ def menu(user_id):
 
     if user_id in get_admins():
         keyboard.row("Admin")
-    
+
+    return keyboard
+
+
+def language_menu():
+    keyboard = ReplyKeyboardMarkup(resize_keyboard=True)
+
+    keyboard.row("Rus", "Eng")
+
     return keyboard
