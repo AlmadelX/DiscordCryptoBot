@@ -2,10 +2,13 @@ from aiogram.types import Message
 
 from bot.data.loader import dp
 
+
 @dp.message_handler(commands=['start', 'help'])
-async def send_welcome(message: Message):
-    await message.reply('Welcome!')
+async def welcome(message: Message):
+    await message.reply('Welcome!\n[bot description]')
+
 
 @dp.message_handler()
-async def echo(message: Message):
-    await message.answer(message.text)
+async def not_supported(message: Message):
+    await message.reply('Command not supported.')
+    
