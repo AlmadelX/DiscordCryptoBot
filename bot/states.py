@@ -15,3 +15,7 @@ class Subscribe(StatesGroup):
 
 class Unsubscribe(StatesGroup):
     input = State()
+
+
+class Support(StatesGroup):
+    input = State()

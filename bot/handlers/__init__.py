@@ -3,6 +3,7 @@ from .subscribe_all import dp
 from .subscribe import dp
 from .unsubscribe import dp
 from .language import dp
+from .support import dp
 
 from bot.data.texts import load_text
 
