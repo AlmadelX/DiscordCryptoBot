@@ -13,6 +13,7 @@ DISCORD_TOKEN = settings['discord_token'].strip().replace(' ', '')
 DATABASE_PATH = 'bot/data/database.db'
 LOGS_PATH = 'bot/data/logs.log'
 
+
 def get_admins() -> list[int]:
     admins = settings['bot_admins'].strip().replace(' ', '')
 

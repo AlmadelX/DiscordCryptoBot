@@ -4,7 +4,7 @@ from aiogram.types import Message
 from bot.data.loader import dp
 from bot.data.texts import load_text, load_button
 from bot.keyboards import start_menu, language_menu
-from bot.models import User, Text
+from bot.models import User
 from bot.services.database import db_session
 from bot.states import Language
 
@@ -22,12 +22,12 @@ async def language(message: Message):
 async def valid(message: Message, state: FSMContext):
     user_id = message.from_user.id
 
-    lang=''
+    lang = ''
     if message.text == 'English':
-        lang='eng'
+        lang = 'eng'
     elif message.text == 'Русский':
-        lang='rus'
-    
+        lang = 'rus'
+
     user = db_session.query(User).filter_by(id=user_id).first()
     if user is None:
         db_session.add(User(id=user_id, lang=lang))

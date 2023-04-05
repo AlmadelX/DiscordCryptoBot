@@ -5,10 +5,7 @@ from sqlalchemy import func
 from bot.data.loader import dp, bot
 from bot.data.texts import load_button, load_text
 from bot.keyboards import start_menu, back_menu
-from bot.models import Server, Subscription
-from bot.services.database import db_session
 from bot.states import Support
-from bot.utils.bot_logging import bot_logger
 from bot.data.config import get_admins
 
 

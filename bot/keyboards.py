@@ -4,26 +4,28 @@ from bot.data.config import get_admins
 from bot.data.texts import load_text
 
 
-def start_menu(user_id: int) -> ReplyKeyboardMarkup:
+def admin_menu() -> ReplyKeyboardMarkup:
     keyboard = ReplyKeyboardMarkup(resize_keyboard=True)
 
-    keyboard.row(load_text('servers_btn', user_id),
-                 load_text('subscriptions_btn', user_id))
-    keyboard.row(load_text('subscribe_all_btn', user_id), load_text(
-        'subscribe_btn', user_id), load_text('unsubscribe_btn', user_id))
-    keyboard.row(load_text('language_btn', user_id),
-                 load_text('support_btn', user_id))
-
-    if user_id in get_admins():
-        keyboard.row(load_text('admin_btn', user_id))
+    keyboard.row('Add server', 'Delete server')
+    keyboard.row('Get my ID')
+    keyboard.row('Back')
 
     return keyboard
 
 
-def language_menu() -> ReplyKeyboardMarkup:
+def append_menu() -> ReplyKeyboardMarkup:
     keyboard = ReplyKeyboardMarkup(resize_keyboard=True)
 
-    keyboard.row('English', 'Русский')
+    keyboard.row('Finish', 'Back')
+
+    return keyboard
+
+
+def back_menu(user_id: int) -> ReplyKeyboardMarkup:
+    keyboard = ReplyKeyboardMarkup(resize_keyboard=True)
+
+    keyboard.row(load_text('back_btn', user_id))
 
     return keyboard
 
@@ -36,18 +38,25 @@ def confirm_menu(user_id: int) -> ReplyKeyboardMarkup:
     return keyboard
 
 
-def back_menu(user_id: int) -> ReplyKeyboardMarkup:
+def language_menu() -> ReplyKeyboardMarkup:
     keyboard = ReplyKeyboardMarkup(resize_keyboard=True)
 
-    keyboard.row(load_text('back_btn', user_id))
+    keyboard.row('English', 'Русский')
 
     return keyboard
 
-def admin_menu() -> ReplyKeyboardMarkup:
+
+def start_menu(user_id: int) -> ReplyKeyboardMarkup:
     keyboard = ReplyKeyboardMarkup(resize_keyboard=True)
 
-    keyboard.row('Add server', 'Delete server')
-    keyboard.row('Get my ID')
-    keyboard.row('Back')
+    keyboard.row(load_text('servers_btn', user_id),
+                 load_text('subscriptions_btn', user_id))
+    keyboard.row(load_text('subscribe_all_btn', user_id), load_text(
+        'subscribe_btn', user_id), load_text('unsubscribe_btn', user_id))
+    keyboard.row(load_text('language_btn', user_id),
+                 load_text('support_btn', user_id))
+
+    if user_id in get_admins():
+        keyboard.row(load_text('admin_btn', user_id))
 
     return keyboard

@@ -14,7 +14,6 @@ async def on_startup(dp: Dispatcher):
     await dp.bot.get_updates(offset=-1)
 
     scheduler.add_job(poll_announcements, 'interval', minutes=1)
-    # await poll_announcements()
 
     bot_logger.info('Bot started')
 

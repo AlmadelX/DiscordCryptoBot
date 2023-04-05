@@ -16,26 +16,28 @@
    
    Unix:
    ```commandline
-   python3 -m venv .venv
+   python -m venv .venv
    source .venv/Scripts/activate
-   pip3 install -r requirements.txt
+   pip install -r requirements.txt
    ```
    Windows:
    ```commandline
-   python3 -m venv .venv
-   .venv/Scripts/activate.bat
-   pip3 install -r requirements.txt
+   python -m venv .venv
+   .venv\Scripts\activate.bat
+   pip install -r requirements.txt
    ```
 
 5. Запустите скрипт:
    ```commandline
-   python3 main.py
+   python main.py
    ```
 
 ## Инструкция по добавлению нового сервера
 1. Вступите в сервер с используемого Discord-аккаунта
 2. В боте выберите: Admin Panel -> Add Server
 3. Введите название сервера
-4. Введите ссылку на канал, который будет отслеживаться:
+4. Введите ссылку на отслеживаемый канал:
 
 ![tutorial](tutorial.png "Tutorial")
+
+5. Если нужно отслеживать ещё каналы вернитесь к шагу 4, иначе выберите Finish

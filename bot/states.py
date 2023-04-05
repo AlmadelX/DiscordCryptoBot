@@ -20,9 +20,11 @@ class Unsubscribe(StatesGroup):
 class Support(StatesGroup):
     input = State()
 
+
 class AddServer(StatesGroup):
     name = State()
     link = State()
+
 
 class DeleteServer(StatesGroup):
     name = State()
