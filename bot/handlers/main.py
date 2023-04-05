@@ -58,3 +58,8 @@ async def subscriptions(message: Message):
         reply = load_text('subscriptions_empty', user_id)
 
     await message.reply(reply)
+
+
+@dp.message_handler(text='Get my ID', state=None)
+async def get_id(message: Message):
+    await message.reply(message.from_user.id, reply_markup=start_menu(message.from_user.id))

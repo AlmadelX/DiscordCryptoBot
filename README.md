@@ -16,20 +16,20 @@
    
    Unix:
    ```commandline
-   python3 -m venv .venv
+   python -m venv .venv
    source .venv/Scripts/activate
-   pip3 install -r requirements.txt
+   pip install -r requirements.txt
    ```
    Windows:
    ```commandline
-   python3 -m venv .venv
-   .venv/Scripts/activate.bat
-   pip3 install -r requirements.txt
+   python -m venv .venv
+   .venv\Scripts\activate.bat
+   pip install -r requirements.txt
    ```
 
 5. Запустите скрипт:
    ```commandline
-   python3 main.py
+   python main.py
    ```
 
 ## Инструкция по добавлению нового сервера
