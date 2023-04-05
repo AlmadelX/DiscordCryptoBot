@@ -2,14 +2,16 @@ import configparser
 
 config = configparser.ConfigParser()
 config.read('settings.ini')
+
+# Load settings
 settings = config['settings']
 
-# Load constants
 BOT_TOKEN = settings['bot_token'].strip().replace(' ', '')
-DATABASE_PATH = settings['database_path'].strip().replace(' ', '')
 DISCORD_TOKEN = settings['discord_token'].strip().replace(' ', '')
-LOGS_PATH = settings['logs_path'].strip().replace(' ', '')
 
+# Constants
+DATABASE_PATH = 'bot/data/database.db'
+LOGS_PATH = 'bot/data/logs.log'
 
 def get_admins() -> list[int]:
     admins = settings['bot_admins'].strip().replace(' ', '')
