@@ -7,6 +7,7 @@ settings = config['settings']
 # Load constants
 BOT_TOKEN = settings['bot_token'].strip().replace(' ', '')
 DATABASE_PATH = settings['database_path'].strip().replace(' ', '')
+DISCORD_TOKEN = settings['discord_token'].strip().replace(' ', '')
 LOGS_PATH = settings['logs_path'].strip().replace(' ', '')
 
 

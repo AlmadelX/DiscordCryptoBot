@@ -1,5 +1,5 @@
 from bot.models import User, Text
-from bot.services.db_session import db_session
+from bot.services.database import db_session
 
 def load_text(name: str, user_id: int) -> str:
     lang = db_session.query(User).get(user_id).lang

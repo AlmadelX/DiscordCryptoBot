@@ -5,7 +5,7 @@ from bot.data.loader import dp
 from bot.data.texts import load_text, load_button
 from bot.keyboards import start_menu, language_menu
 from bot.models import Text, Server, Subscription
-from bot.services.db_session import db_session
+from bot.services.database import db_session
 from bot.states import Language
 from bot.filters import IsPowerOff, IsNotStarted
 

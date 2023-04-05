@@ -1,6 +1,6 @@
 import sqlalchemy
 
-from bot.services.db_session import SqlAlchemyBase
+from bot.services.database import SqlAlchemyBase
 
 
 class Setting(SqlAlchemyBase):
@@ -32,8 +32,11 @@ class Server(SqlAlchemyBase):
     __tablename__ = 'servers'
 
     id = sqlalchemy.Column(
-        sqlalchemy.Integer, nullable=False, primary_key=True, autoincrement=True, unique=True)
+        sqlalchemy.Integer, nullable=False, primary_key=True, autoincrement=True, unique=True
+    )
     name = sqlalchemy.Column(sqlalchemy.Text, nullable=False, unique=True)
+    channel = sqlalchemy.Column(sqlalchemy.Text, nullable=False, unique=True)
+    last_message = sqlalchemy.Column(sqlalchemy.Text, nullable=False, unique=True)
 
 
 class Subscription(SqlAlchemyBase):

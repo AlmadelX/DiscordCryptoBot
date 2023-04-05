@@ -2,7 +2,7 @@ from aiogram import types
 from aiogram.dispatcher.filters import BoundFilter
 
 from bot.models import User, Setting
-from bot.services.db_session import db_session
+from bot.services.database import db_session
 from bot.data.config import get_admins
 
 
