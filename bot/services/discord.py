@@ -25,10 +25,8 @@ async def poll_announcements():
         channel.last_message = message['id']
         db_session.commit()
 
-        server = db_session.query(Server).get(channel.server)
-        text = message['content']
-        announcement = f'New announcement on {server.name}:\n{text}'
-        await notify_subscribers(server.id, announcement)
+        announcement = message['content']
+        await notify_subscribers(channel.server, announcement)
 
 
 def get_last_message_id(channel: str) -> str:
