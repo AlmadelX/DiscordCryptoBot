@@ -10,6 +10,7 @@ headers = {
     'authorization': DISCORD_TOKEN
 }
 
+
 async def poll_announcements():
     channels = db_session.query(Channel).all()
 
@@ -37,6 +38,6 @@ def get_last_message_id(channel: str) -> str:
     )
     if not response.ok:
         return 'error'
-    
+
     message = json.loads(response.text)[0]
     return message['id']

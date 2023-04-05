@@ -3,7 +3,7 @@ from aiogram.types import Message
 
 from bot.data.loader import dp
 from bot.data.texts import load_button, load_text
-from bot.keyboards import confirm_menu, start_menu, back_menu
+from bot.keyboards import confirm_menu, start_menu
 from bot.models import Server, Subscription
 from bot.services.database import db_session
 from bot.states import SubscribeAll
