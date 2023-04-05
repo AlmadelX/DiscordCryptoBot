@@ -46,7 +46,7 @@ def back_menu(user_id: int) -> ReplyKeyboardMarkup:
 def admin_menu() -> ReplyKeyboardMarkup:
     keyboard = ReplyKeyboardMarkup(resize_keyboard=True)
 
-    keyboard.row('Add server')
+    keyboard.row('Add server', 'Delete server')
     keyboard.row('Get my ID')
     keyboard.row('Back')
 

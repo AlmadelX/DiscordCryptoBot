@@ -2,13 +2,14 @@ from aiogram.dispatcher import FSMContext
 from aiogram.types import Message
 from sqlalchemy import func
 
-from bot.data.loader import dp
+from bot.data.loader import dp, bot
 from bot.data.texts import load_button, load_text
 from bot.keyboards import start_menu, back_menu
 from bot.models import Server, Subscription
 from bot.services.database import db_session
 from bot.states import Support
 from bot.utils.bot_logging import bot_logger
+from bot.data.config import get_admins
 
 
 @dp.message_handler(text=load_button('support_btn'), state=None)
@@ -31,8 +32,8 @@ async def input(message: Message, state: FSMContext):
         await message.reply(reply, reply_markup=start_menu(user_id))
         return
 
-    # TODO: Send message
-    bot_logger.info(message.text)
+    for admin in get_admins():
+        await bot.send_message(admin, f'New support call from {user_id}:\n{message.text}')
 
     reply = load_text('support_success', user_id)
 

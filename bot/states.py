@@ -23,3 +23,6 @@ class Support(StatesGroup):
 class AddServer(StatesGroup):
     name = State()
     link = State()
+
+class DeleteServer(StatesGroup):
+    name = State()
