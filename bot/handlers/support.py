@@ -30,7 +30,7 @@ async def input(message: Message, state: FSMContext):
         return
 
     for admin in get_admins():
-        await bot.send_message(admin, f'New support call from {user_id}:\n{message.text}')
+        await bot.send_message(admin, f'New support call from @{message.from_user.username}:\n{message.text}')
 
     reply = load_text('support_success', user_id)
 
