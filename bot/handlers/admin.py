@@ -89,6 +89,6 @@ async def delete_name(message: Message, state: FSMContext):
     await message.reply('Server deleted successfully', reply_markup=start_menu(message.from_user.id))
 
 
-@dp.message_handler(IsAdmin(), text='Get my ID', state=None)
+@dp.message_handler(text='Get my ID', state=None)
 async def get_id(message: Message):
     await message.reply(message.from_user.id, reply_markup=start_menu(message.from_user.id))
