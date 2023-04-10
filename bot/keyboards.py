@@ -1,62 +1,45 @@
 from aiogram.types import ReplyKeyboardMarkup
 
-from bot.data.config import get_admins
-from bot.data.texts import load_text
+from bot.resources.config import config
 
 
 def admin_menu() -> ReplyKeyboardMarkup:
     keyboard = ReplyKeyboardMarkup(resize_keyboard=True)
 
-    keyboard.row('Add server', 'Delete server')
-    keyboard.row('Get my ID')
-    keyboard.row('Back')
+    keyboard.row('Добавить сервер', 'Удалить сервер')
+    keyboard.row('Узнать мой ID')
+    keyboard.row('Рассылка')
+    keyboard.row('Назад')
 
     return keyboard
 
 
 def append_menu() -> ReplyKeyboardMarkup:
     keyboard = ReplyKeyboardMarkup(resize_keyboard=True)
-
-    keyboard.row('Finish', 'Back')
-
+    keyboard.row('Завершить', 'Назад')
     return keyboard
 
 
-def back_menu(user_id: int) -> ReplyKeyboardMarkup:
+def back_menu() -> ReplyKeyboardMarkup:
     keyboard = ReplyKeyboardMarkup(resize_keyboard=True)
-
-    keyboard.row(load_text('back_btn', user_id))
-
+    keyboard.row('Назад')
     return keyboard
 
 
-def confirm_menu(user_id: int) -> ReplyKeyboardMarkup:
+def confirm_menu() -> ReplyKeyboardMarkup:
     keyboard = ReplyKeyboardMarkup(resize_keyboard=True)
-
-    keyboard.row(load_text('yes_btn', user_id), load_text('no_btn', user_id))
-
-    return keyboard
-
-
-def language_menu() -> ReplyKeyboardMarkup:
-    keyboard = ReplyKeyboardMarkup(resize_keyboard=True)
-
-    keyboard.row('English', 'Русский')
-
+    keyboard.row('Да', 'Нет')
     return keyboard
 
 
 def start_menu(user_id: int) -> ReplyKeyboardMarkup:
     keyboard = ReplyKeyboardMarkup(resize_keyboard=True)
 
-    keyboard.row(load_text('servers_btn', user_id),
-                 load_text('subscriptions_btn', user_id))
-    keyboard.row(load_text('subscribe_all_btn', user_id), load_text(
-        'subscribe_btn', user_id), load_text('unsubscribe_btn', user_id))
-    keyboard.row(load_text('language_btn', user_id),
-                 load_text('support_btn', user_id))
+    keyboard.row('📝 Доступные серверы', '📚 Мои подписки')
+    keyboard.row('📣 Подписаться на всё', '✅ Подписаться', '❌ Отписаться')
+    keyboard.row('👨‍💻 Поддержка')
 
-    if user_id in get_admins():
-        keyboard.row(load_text('admin_btn', user_id))
+    if user_id in config.bot_admins:
+        keyboard.row('Админ-панель')
 
     return keyboard

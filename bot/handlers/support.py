@@ -1,38 +1,32 @@
 from aiogram.dispatcher import FSMContext
 from aiogram.types import Message
-from sqlalchemy import func
 
-from bot.data.loader import dp, bot
-from bot.data.texts import load_button, load_text
+from bot.bot import dispatcher, bot
 from bot.keyboards import start_menu, back_menu
 from bot.states import Support
-from bot.data.config import get_admins
+from bot.resources.config import config
 
 
-@dp.message_handler(text=load_button('support_btn'), state=None)
+@dispatcher.message_handler(text='👨‍💻 Поддержка', state=None)
 async def support(message: Message):
-    user_id = message.from_user.id
-    reply = load_text('support_query', user_id)
-
     await Support.input.set()
-    await message.reply(reply, reply_markup=back_menu(user_id))
+    await message.reply('Ваше сообщение для службы поддержки:', reply_markup=back_menu())
 
 
-@dp.message_handler(state=Support.input)
-async def input(message: Message, state: FSMContext):
+@dispatcher.message_handler(text='Назад', state=Support.input)
+async def cancel(message: Message, state: FSMContext):
+    await state.finish()
+    await message.reply('Отменено', reply_markup=start_menu(message.from_user.id))
+
+
+@dispatcher.message_handler(state=Support.input)
+async def query(message: Message, state: FSMContext):
     user_id = message.from_user.id
 
-    if message.text in ['Back', 'Назад']:
-        reply = load_text('canceled', user_id)
+    for admin in config.bot_admins:
+        await bot.send_message(admin, f'Обращение в поддержку от @{message.from_user.username}:\n{message.text}')
 
-        await state.finish()
-        await message.reply(reply, reply_markup=start_menu(user_id))
-        return
-
-    for admin in get_admins():
-        await bot.send_message(admin, f'New support call from @{message.from_user.username}:\n{message.text}')
-
-    reply = load_text('support_success', user_id)
+    reply = 'Ваше сообщение отправлено.\nВскоре служба поддержки с вами свяжется.'
 
     await state.finish()
     await message.reply(reply, reply_markup=start_menu(user_id))

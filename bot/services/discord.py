@@ -1,13 +1,13 @@
 import requests
 import json
 
-from bot.data.config import DISCORD_TOKEN
-from bot.services.database import db_session
-from bot.models import Channel, Server
-from bot.utils.notifier import notify_subscribers
+from bot.resources.config import config
+from bot.resources.database import db_session
+from bot.models import Channel
+from bot.notifier import notify_subscribers
 
 headers = {
-    'authorization': DISCORD_TOKEN
+    'authorization': config.discord_token
 }
 
 

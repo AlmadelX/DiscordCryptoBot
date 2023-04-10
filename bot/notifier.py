@@ -1,7 +1,6 @@
-from bot.data.loader import bot
-from bot.data.texts import load_text
+from bot.bot import bot
 from bot.models import Server, Subscription
-from bot.services.database import db_session
+from bot.resources.database import db_session
 
 
 async def notify_subscribers(server_id: int, announcement: str):
@@ -11,8 +10,7 @@ async def notify_subscribers(server_id: int, announcement: str):
     ).filter_by(server_id=server_id).all()
 
     for subscription in subscriptions:
-        message = '{} {}:\n{}'.format(
-            load_text('announcement', subscription.user_id),
+        message = 'Новый анонс от {}:\n{}'.format(
             server_name,
             announcement
         )
