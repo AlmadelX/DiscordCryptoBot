@@ -8,7 +8,7 @@ def admin_menu() -> ReplyKeyboardMarkup:
 
     keyboard.row('Добавить сервер', 'Удалить сервер')
     keyboard.row('Узнать мой ID')
-    keyboard.row('Рассылка')
+    keyboard.row('Пользователи', 'Рассылка')
     keyboard.row('Назад')
 
     return keyboard

@@ -24,3 +24,7 @@ class AddServer(StatesGroup):
 
 class DeleteServer(StatesGroup):
     name = State()
+
+
+class Mailing(StatesGroup):
+    input = State()

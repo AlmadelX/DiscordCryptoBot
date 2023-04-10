@@ -4,10 +4,11 @@ from aiogram.types import Message
 from bot.bot import dispatcher
 from bot.filters import Admin
 from bot.keyboards import admin_menu, append_menu, back_menu, start_menu
-from bot.models import Channel, Server, Subscription
+from bot.models import Channel, Server, Subscription, User
 from bot.resources.database import db_session
 from bot.services.discord import get_last_message_id
-from bot.states import AddServer, DeleteServer
+from bot.states import AddServer, DeleteServer, Mailing
+from bot.notifier import notify_all
 
 
 @dispatcher.message_handler(Admin(), text='Админ-панель', state=None)
@@ -103,3 +104,32 @@ async def delete_name(message: Message, state: FSMContext):
 
     await state.finish()
     await message.reply('Сервер успешно удален', reply_markup=start_menu(message.from_user.id))
+
+
+@dispatcher.message_handler(Admin(), text='Пользователи', state=None)
+async def users(message: Message):
+    users = db_session.query(User).all()
+    usernames = [user.username for user in users]
+    reply = 'Пользователи бота:\n' + '\n'.join(usernames)
+
+    await message.reply(reply, reply_markup=start_menu(message.from_user.id))
+
+
+@dispatcher.message_handler(Admin(), text='Рассылка', state=None)
+async def mailing_query(message: Message):
+    await Mailing.input.set()
+    await message.reply('Введите сообщение для рассылки:', reply_markup=back_menu())
+
+
+@dispatcher.message_handler(text='Назад', state=Mailing.input)
+async def mailing_cancel(message: Message, state: FSMContext):
+    await state.finish()
+    await message.reply('Отменено', reply_markup=start_menu(message.from_user.id))
+
+
+@dispatcher.message_handler(state=Mailing.input)
+async def mailing(message: Message, state: FSMContext):
+    await notify_all(message.text)
+
+    await state.finish()
+    await message.reply('Рассылка успешно завершена', reply_markup=start_menu(message.from_user.id))
