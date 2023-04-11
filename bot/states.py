@@ -1,10 +1,6 @@
 from aiogram.dispatcher.filters.state import State, StatesGroup
 
 
-class Language(StatesGroup):
-    choose = State()
-
-
 class SubscribeAll(StatesGroup):
     confirm = State()
 
@@ -28,3 +24,7 @@ class AddServer(StatesGroup):
 
 class DeleteServer(StatesGroup):
     name = State()
+
+
+class Mailing(StatesGroup):
+    input = State()

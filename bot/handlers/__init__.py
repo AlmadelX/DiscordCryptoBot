@@ -1,16 +1,15 @@
-from .main import dp
-from .subscribe_all import dp
-from .subscribe import dp
-from .unsubscribe import dp
-from .language import dp
-from .support import dp
-from .admin import dp
+from aiogram.types import Message
 
-from bot.data.texts import load_text
+from .main import dispatcher
+from .subscribe_all import dispatcher
+from .subscribe import dispatcher
+from .unsubscribe import dispatcher
+from .support import dispatcher
+from .admin import dispatcher
 
 
-@dp.message_handler(state='*')
-async def fallback(message):
-    await message.reply(load_text('fallback', message.from_user.id))
+@dispatcher.message_handler(state='*')
+async def fallback(message: Message):
+    await message.reply('Команда не поддерживается')
 
-__all__ = ['dp']
+__all__ = ['dispatcher']

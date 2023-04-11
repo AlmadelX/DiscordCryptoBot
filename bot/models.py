@@ -1,6 +1,6 @@
 import sqlalchemy
 
-from bot.services.database import SqlAlchemyBase
+from bot.resources.database import SqlAlchemyBase
 
 
 class Channel(SqlAlchemyBase):
@@ -37,18 +37,6 @@ class Server(SqlAlchemyBase):
     name = sqlalchemy.Column(sqlalchemy.Text, nullable=False, unique=True)
 
 
-class Setting(SqlAlchemyBase):
-    __tablename__ = 'settings'
-
-    key = sqlalchemy.Column(
-        sqlalchemy.Text,
-        nullable=False,
-        primary_key=True,
-        unique=True
-    )
-    value = sqlalchemy.Column(sqlalchemy.Text, nullable=False)
-
-
 class Subscription(SqlAlchemyBase):
     __tablename__ = 'subscriptions'
 
@@ -71,19 +59,6 @@ class Subscription(SqlAlchemyBase):
     )
 
 
-class Text(SqlAlchemyBase):
-    __tablename__ = 'texts'
-
-    name = sqlalchemy.Column(
-        sqlalchemy.Text,
-        nullable=False,
-        primary_key=True,
-        unique=True
-    )
-    eng = sqlalchemy.Column(sqlalchemy.Text)
-    rus = sqlalchemy.Column(sqlalchemy.Text)
-
-
 class User(SqlAlchemyBase):
     __tablename__ = 'users'
 
@@ -93,4 +68,8 @@ class User(SqlAlchemyBase):
         primary_key=True,
         unique=True
     )
-    lang = sqlalchemy.Column(sqlalchemy.Text, nullable=False)
+    username = sqlalchemy.Column(
+        sqlalchemy.Text,
+        nullable=False,
+        unique=True
+    )
