@@ -43,3 +43,8 @@ def get_last_message_id(channel: str) -> str:
 
     message = json.loads(response.text)[0]
     return message['id']
+
+
+def check_token() -> bool:
+    test_channel = '1093044976281202810'
+    return get_last_message_id(test_channel) != 'error'

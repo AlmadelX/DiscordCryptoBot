@@ -4,11 +4,15 @@ from bot.bot import scheduler
 from bot.handlers import dispatcher
 from bot.filters import Private
 from bot.resources.database import db_session
-from bot.services.discord import poll_announcements
+from bot.services.discord import poll_announcements, check_token
 from bot.resources.logging import logger
 
 
 async def on_startup(dp: Dispatcher):
+    if not check_token():
+        logger.error('Invalid Discord token')
+        exit(-1)
+
     await dp.bot.delete_webhook()
     await dp.bot.get_updates(offset=-1)
 

@@ -49,11 +49,14 @@ class Config:
             logger.critical('Failed to parse settings file')
             exit(-1)
 
-        if len(self.bot_token) == 0 or len(self.discord_token) == 0:
-            logger.critical('Token not specified')
+        if len(self.bot_token) == 0:
+            logger.critical('Telegram token is not specified')
+            exit(-1)
+        if len(self.discord_token) == 0:
+            logger.critical('Discord token is not specified')
             exit(-1)
         if len(self.bot_admins) == 0:
-            logger.error('Admins not specified')
+            logger.error('Admins are not specified')
 
 
 config = Config()
