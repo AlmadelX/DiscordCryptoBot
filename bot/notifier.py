@@ -34,9 +34,9 @@ async def notify(users: list[int], message: str, parse_mode=''):
 
 
 def format_message(message: str) -> str:
-    message = re.sub(r'<:\w*:\w*>', '', message)
+    message = re.sub(r'<(:\w*)?>', '', message)
     message = re.sub(r'<(\S*)>', r'\1', message)
-    message = re.sub(r'@\w*', '', message)
+    message = re.sub(r'@\S*', '', message)
     message = re.sub(r'\|\|(.*)\|\|', r'\1', message)
 
     message = convert_to_html(message)

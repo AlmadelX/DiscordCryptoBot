@@ -1,3 +1,4 @@
+import sys, os
 from aiogram import Dispatcher, executor
 
 from bot.bot import scheduler
@@ -9,7 +10,9 @@ from bot.resources.logging import logger
 
 
 async def on_startup(dp: Dispatcher):
-    if not check_token():
+    sys.stdout = open(os.devnull, 'w')  # block regular prints
+
+    if not await check_token():
         logger.error('Invalid Discord token')
         exit(-1)
 

@@ -1,5 +1,5 @@
-import requests
-import json
+import asyncio
+from aiohttp import ClientSession
 
 from bot.resources.config import config
 from bot.resources.database import db_session
@@ -12,39 +12,59 @@ headers = {
 }
 
 
+class Message:
+    def __init__(self, id: int, text: str):
+        self.id = id
+        self.text = text
+
+
+class DiscordException(Exception):
+    def __init__(self):
+        super().__init__('Failed to get message')
+
+
+async def get_last_message(channel: str, session=ClientSession()) -> Message:
+    async with session.get(
+            f'https://discord.com/api/v9/channels/{channel}/messages?limit=1',
+            headers=headers
+    ) as response:
+        if not response.ok:
+            raise DiscordException()
+
+        try:
+            result = (await response.json())[0]
+            return Message(result['id'], result['content'])
+        except Exception:
+            raise DiscordException()
+
+
 async def poll_announcements():
     channels = db_session.query(Channel).all()
 
-    for channel in channels:
-        response = requests.get(
-            f'https://discord.com/api/v9/channels/{channel.id}/messages?limit=1',
-            headers=headers
-        )
-        try:
-            message = json.loads(response.text)[0]
-            if message['id'] == channel.last_message:
+    async with ClientSession() as session:
+        for channel in channels:
+            notify_tasks = []
+            try:
+                message = await get_last_message(channel.id, session)
+            except DiscordException:
+                logger.error('Failed to read message from Discord')
                 continue
-            channel.last_message = message['id']
-            db_session.commit()
 
-            announcement = message['content']
-            await notify_subscribers(channel.server, announcement)
-        except Exception:
-            logger.error('Failed to read message from Discord')
+            if message.id != channel.last_message:
+                channel.last_message = message.id
+                notify_tasks.append(
+                    asyncio.create_task(notify_subscribers(channel.server, message.text))
+                )
 
-
-def get_last_message_id(channel: str) -> str:
-    response = requests.get(
-        f'https://discord.com/api/v9/channels/{channel}/messages?limit=1',
-        headers=headers
-    )
-    if not response.ok:
-        return 'error'
-
-    message = json.loads(response.text)[0]
-    return message['id']
+    db_session.commit()
+    await asyncio.gather(*notify_tasks)
 
 
-def check_token() -> bool:
+async def check_token() -> bool:
     test_channel = '1093044976281202810'
-    return get_last_message_id(test_channel) != 'error'
+
+    try:
+        await get_last_message(test_channel)
+        return True
+    except DiscordException:
+        return False
