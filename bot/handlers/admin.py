@@ -6,7 +6,7 @@ from bot.filters import Admin
 from bot.keyboards import admin_menu, append_menu, back_menu, start_menu
 from bot.models import Channel, Server, Subscription, User
 from bot.resources.database import db_session
-from bot.services.discord import get_last_message_id
+from bot.services.discord import get_last_message, DiscordException
 from bot.states import AddServer, DeleteServer, Mailing
 from bot.notifier import notify_all
 
@@ -71,8 +71,9 @@ async def add_link(message: Message, state: FSMContext):
         await message.reply('Канал уже добавлен')
         return
 
-    last_message = get_last_message_id(channel)
-    if last_message == 'error':
+    try:
+        last_message = (await get_last_message(channel)).id
+    except DiscordException:
         await message.reply('Неверная ссылка')
         return
 
