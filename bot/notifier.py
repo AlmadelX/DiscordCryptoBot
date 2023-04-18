@@ -43,7 +43,7 @@ def format_message(message: str) -> str:
     message = message.replace('<p>', '')
     message = message.replace('</p>', '\n')
 
-    return message
+    return message.strip()
 
 
 async def notify_subscribers(server_id: int, announcement: str):
@@ -52,9 +52,13 @@ async def notify_subscribers(server_id: int, announcement: str):
         Subscription
     ).filter_by(server_id=server_id).all()
     users = [subscription.user_id for subscription in subscriptions]
+    announcement = format_message(announcement)
+    if not len(announcement):
+        return
+
     message = '<b>Новый анонс от {}:</b>\n{}'.format(
         server_name,
-        format_message(announcement)
+        announcement
     )
 
     await notify(users, message, 'HTML')
