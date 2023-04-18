@@ -41,9 +41,9 @@ async def get_last_message(channel: str, session=ClientSession()) -> Message:
 async def poll_announcements():
     channels = db_session.query(Channel).all()
 
+    notify_tasks = []
     async with ClientSession() as session:
         for channel in channels:
-            notify_tasks = []
             try:
                 message = await get_last_message(channel.id, session)
             except DiscordException:

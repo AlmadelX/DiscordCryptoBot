@@ -1,12 +1,14 @@
-import sys, os
+import os
+import sys
+
 from aiogram import Dispatcher, executor
 
 from bot.bot import scheduler
-from bot.handlers import dispatcher
 from bot.filters import Private
+from bot.handlers import dispatcher
 from bot.resources.database import db_session
-from bot.services.discord import poll_announcements, check_token
 from bot.resources.logging import logger
+from bot.services.discord import poll_announcements, check_token
 
 
 async def on_startup(dp: Dispatcher):
