@@ -1,6 +1,6 @@
 import asyncio
 from discord_markdown.discord_markdown import convert_to_html
-from aiogram.utils.exceptions import ChatNotFound, BotBlocked
+from aiogram.utils.exceptions import ChatNotFound, BotBlocked, CantInitiateConversation
 import re
 
 from bot.bot import bot
@@ -24,7 +24,7 @@ async def notify(users: list[int], message: str, parse_mode=''):
     for task, user in calls:
         try:
             await task
-        except (ChatNotFound, BotBlocked):
+        except (ChatNotFound, BotBlocked, CantInitiateConversation):
             to_delete.append(user)
 
     if len(to_delete) > 0:
